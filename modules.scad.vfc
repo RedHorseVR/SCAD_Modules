@@ -1,0 +1,236 @@
+;  IRL FlowCode Version: Version 10.0
+;  c1995-2015: Visual Flow Coder by 2LResearch
+;
+;  File Name : modules.scad.vfc
+;  File Date : 11:48:08 PM - 14:Apr:2021
+
+
+input(//  include <..\SCAD_modules\modules.scad>);//FILE: ..\SCAD_modules\modules.scad.vfc
+
+input(include <gears-master\gears.scad>);//FILE: ..\SCAD_modules\modules.scad.vfc
+output(echo( " --------------------------------------------- " ););//
+set();//x = mod( 10, 6 );
+output(echo( "INCLUDE MODULES SCAD LIB **** ") ;);//echo( " x = ", x );
+set();//
+output(echo( " --------------------------------------------- " ););//
+generic( ////);//////////////////////////////////////////////////////////
+end();//
+
+input(module pieSlice(radius, angle, thickness){);// ////
+generic();// // a:angle, r:radius, h:height //
+generic(rotate_extrude(angle=angle) square([radius,thickness]););// ////
+end(});//// //////
+
+input(module ringSlice(radius, angle, width,  thickness){);// 
+generic();// // a:angle, r:radius, h:height //
+branch(difference() {);//
+path(union() {);//
+generic(rotate_extrude(angle=angle) square([radius,thickness]););// ////
+path(}  union() {);//
+process(translate( [ 0 , 0 , -.5] )  cylinder( r = (radius - width), h = thickness +1 ););//
+bend(}});//
+end(});//// //////
+
+input(module floor (  z = 0 , D = 350  ) {);//
+process(translate( [ 0 , 0 , -D/2 +  z ] )  cube( [ D , D , D ] , center=true ););//floor
+end( });//
+
+input(module Dshaft( Radius, H, CutRatio = .8 ) {);//
+branch(difference(){);//
+path(union(){);//
+set(cylinder( r = Radius, h = H  ););//
+path( }union(){);// } # union(){
+process(translate( [2*Radius * CutRatio, 0 , 0 ] )  box( 2* Radius , 2*Radius , H+1  ););//
+bend(  } });//
+end( });//
+
+input(module servo_sg90(){);//// //////
+generic(w = 13;);// ////
+generic(l = 23;);// ////
+generic(d = 23;);// ////
+generic(lip_width = 5;);// ////
+generic(top = 6.5;);// ////
+set(stem_h = 4.5 ;);//
+set();//stem_rad = 2;
+set(neck_offset = 5.7;);//
+set(neck_rad = 5.7;);//
+set(neck_h = 4.8;);//
+generic(plate_thick = 2.25;);// ////
+generic(hole_offset = 2.5;);// ////
+generic(hole_rad = 1.19;);// ////
+branch(difference(){);//// //////
+path(union(){);// 
+generic(box(l,w,d););// 
+generic(translate([l/2- neck_offset , 0,d])cylinder(r=neck_rad , h = neck_h ););// neck
+generic( );//translate([l/2-10,0,d])box(l,10.5,7);
+generic();// 
+generic(translate([ l/2 - neck_offset ,0, d+neck_h])cylinder(r=stem_rad,h= stem_h););// stem
+generic(translate([ l/2 - neck_offset ,0, 0])cylinder(r= hole_rad ,h=d*1.5););//stem hole
+generic(translate( [ 0, 0, d-top ] ) box( l + 2 * lip_width , w, plate_thick ););// PLATE
+process(translate( [ 0 , 0 , 10 ] ));//
+set({);//
+generic(translate([l/2+hole_offset,0,0])cylinder(r=hole_rad , h=d););// hole
+generic(translate([-l/2-hole_offset ,0,0])cylinder(r= hole_rad ,h=d ););// hole
+set(});//
+set();//
+generic(translate( [ l/2, 0, 0 ] ) box( l , w , 11 ););// servo connector wire opening
+generic(});// 
+path(union(){);//// //////
+generic(});// ////
+bend(});//// //////
+end(});//// //////
+set(stem_rad = 1.9;);//
+
+input(module servo_3114(){);//// //////
+generic(w = 12;);// ////
+generic(l = 22.5;);// ////
+generic(d = 16.6;);// ////
+generic(lip_width = 5;);// ////
+generic(top = 6.5;);// ////
+set(stem_h = 4.5 ;);//
+set(neck_offset = 5.7;);//
+set(neck_rad = 5.7;);//
+set(neck_h = 4.8;);//
+generic(plate_thick = 2.25;);// ////
+generic(hole_offset = 2.5;);// ////
+generic(hole_rad = .7;);// ////
+branch(difference(){);//// //////
+path(union(){);// 
+generic(box(l,w,d););// 
+generic(translate([l/2- neck_offset , 0,d])cylinder(r=neck_rad , h = neck_h ););// neck
+generic( );//translate([l/2-10,0,d])box(l,10.5,7);
+generic();// 
+generic(#translate([ l/2 - neck_offset ,0,d+neck_h])cylinder(r=stem_rad,h= stem_h););// stem
+generic(#translate( [ 0, 0, d-top ] ) box( l + 2 * lip_width , w, plate_thick ););// PLATE
+generic(translate([l/2+hole_offset,0,0])cylinder(r=hole_rad , h=d*1.5 ););// hole
+generic(translate([-l/2-hole_offset ,0,0])cylinder(r= hole_rad ,h=d*1.5););// hole
+generic(});// 
+path(union(){);//// //////
+generic(});// ////
+bend(});//// //////
+end(});//// //////
+
+input(module servo_mount(){);//// //////
+branch(difference(){);//// //////
+path(union(){);//// //////
+generic(translate([ 9.25,2,0])box(45,18,9););// ////
+generic(});// ////
+path(union(){);//// //////
+generic(translate([2.25,2,-11])rotate([0,0,180])servo_sg90(););// ////
+generic(% translate([2.25,2,-11])rotate([0,0,180])servo_sg90(););// ////
+generic(});// ////
+bend(});//// //////
+end(});//// //////
+
+input(module backdrop_holder(){);//// //////
+generic(difference(){);// ////
+generic(union(){);// ////
+generic(box(90,20,3););// ////
+generic(translate([60,0,0])box(39,70,13););// ////
+generic(translate([-60,0,0])cylinder(r=47,h=8););// ////
+generic(});// ////
+generic(union(){);// ////
+generic();// //floor //
+generic(translate([-60,0,0])cylinder(r=45,h=8););// ////
+generic(#    translate([60,0,3])box(33,72,14););// ////
+generic(});// ////
+generic(});// ////
+end(});//// //////
+
+input(module servo_hornhole(){);//// //////
+generic();// //translate([0,0,4.5])cylinder(r=6.3/2, h =14); //
+generic(#translate([0,0,-5])cylinder(r=1.2, h = 25););// ////
+generic(translate([0,0,1.1])cylinder(r1=4.2/2, r2=4.8/2, h = 5););// ////
+end(});//// //////
+event(function mod( fx,fm) = ( fx - fm*round( fx/fm- .5)  ) ;);//
+end();//
+
+input(module rounded_square(d,r) {);//// //////
+branch(minkowski() {);//// //////
+path();//
+generic(translate([r,r]) square([d[0]-2*r, d[1]-2*r]););// ////
+generic(circle(r););// ////
+bend(});//// //////
+end(});//// //////
+
+input(module rounded_box(d,r) {);//// //////
+process(translate( [ -d[0]/2 , -d[1]/2 , 0 ] ));//
+process(linear_extrude(height = d[2] ));//
+branch(minkowski() {);//// //////
+path();//
+generic(translate([r,r]) square([d[0]-2*r, d[1]-2*r]););// ////
+generic(circle(r););// ////
+bend(});//// //////
+end(});//// //////
+
+input(module blkfly_bracket(){);//// //////
+branch(difference(){);//// //////
+path(union(){);//// //////
+generic(translate([0,0,0])box(40,40,5););// ////
+generic(translate([0,0,0])box(40,20,98););// ////
+generic(});// //union(){ //
+path();//
+generic(translate([0,0,80])box(29.5,30,51););// ////
+generic(// translate([-40,0,0])cylinder(r=30/2,h=19,center=false););// ////
+bend(});////// ////////
+end(});//// //////
+
+input(module washer(){);//// //////
+branch(difference(){);//// //////
+path();//
+generic(cylinder(r=13, h=3.5););// ////
+path();//
+generic(cylinder(r=2.5,h=7););// ////
+bend(});//// //////
+end(});//// //////
+
+input(module ruler(x,y,z,r){ translate([x,y,z])rotate([0,0,r]){);//// //////
+loop(for(i=[0:9]){);//// //////
+generic(%box(9.9,10,10,i*10+5););// ////
+lend(});//// //////
+end(}});////// ////////
+
+input(module box(w,l,h) {);//// //////
+output(echo( " --------------------------BOX------------------- " ););//
+generic(translate([-w/2,-l/2,0])cube([w,l,h]););// ////
+end(});//// //////
+
+input(module ring( inner_rad, wall_thick, high ){);//// //////
+branch(difference(){);//// //////
+path();//
+generic(cylinder(r=inner_rad+wall_thick, h=high););// ////
+path();//
+generic(translate([0,0,-.1])cylinder(r=inner_rad, h=high+.2););// ////
+bend(});//// //////
+end(});//// //////
+
+input(module wedge(T,L,h ) {);// 
+generic(A =  -atan(L/h););// ////
+process(translate( [ -T/2 , 0 , 0 ] ));//
+branch(difference(){);//// //////
+path();//
+generic(//translate([-w/2,-l/2,0]));// ////
+generic(cube([T,L,h]););// ////
+path();//#
+generic(rotate([A,0,0])translate([-1.0,-L])cube([T+2,L,2*5*h]););// ////
+bend(});//// //////
+end(});////// ////////
+
+input(module cone(R1,R2,H,T){);//// //////
+branch(difference(){);//// //////
+path();//
+generic(cylinder( r1=R1, r2=R2, h=H,center=false););// ////
+path();//
+process(translate( [ 0 , 0 , -.1 ] ));//
+generic(cylinder( r1=R1-T, r2=R2-T,h=H+1,center=false););// ////
+bend(});//// //////
+end(});//// //////
+
+
+
+;INSECTA EMBEDDED SESSION INFORMATION
+; 255 16777215 65280 16777088 16711680 255 255 0 255 255 65535 65280 3289700
+;    modules.scad   //   ...
+; notepad.exe
+;INSECTA EMBEDDED ALTSESSION INFORMATION
+; 2102 237 1453 1182 1 157   508   4294966517    SCAD.key  0
