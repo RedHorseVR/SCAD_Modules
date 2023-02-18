@@ -168,9 +168,14 @@ module ruler(x,y,z,r){ translate([x,y,z])rotate([0,0,r]){
 		}
 	
 	}}
-module box(w,l,h) {
-	echo( " --------------------------BOX------------------- " );
-	translate([-w/2,-l/2,0])cube([w,l,h]);
+module box(w,l,h, center = true ) {
+	echo( " > BOX------------------- " );
+	if( center  )
+	{
+		translate([-w/2, -l/2, 0])   cube([w,l,h], center = false);
+	} else {
+		cube([w,l,h] );
+		}
 	}
 module ring( inner_rad, wall_thick, high ){
 	difference(){
@@ -191,6 +196,27 @@ module wedge(T,L,h ) {
 		rotate([A,0,0])translate([-1.0,-L])cube([T+2,L,2*5*h]);
 		}
 	}
+module pyramid(w, l, h) {
+	translate( [ w/2, -l/2 , h ] )  rotate( [ 0 , 180 , 0 ] )   {
+	mw = w/2;
+	ml = l/2;
+	polyhedron(points = [
+	[0,  0,  0],
+	[w,  0,  0],
+	[0,  l,  0],
+	[w,  l,  0],
+	[mw, ml, h]
+	], triangles = [
+	[4, 1, 0],
+	[4, 3, 1],
+	[4, 2, 3],
+	[4, 0, 2],
+	
+	[0, 1, 2],
+	[2, 1, 3]
+	]);
+	}
+}
 module cone(R1,R2,H,T){
 	difference(){
 	
@@ -200,5 +226,5 @@ module cone(R1,R2,H,T){
 		cylinder( r1=R1-T, r2=R2-T,h=H+1,center=false);
 		}
 	}
-//  Export  Date: 11:48:08 PM - 14:Apr:2021...
+//  Export  Date: 09:48:41 AM - 26:Jan:2023...
 

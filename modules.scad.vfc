@@ -2,7 +2,7 @@
 ;  c1995-2015: Visual Flow Coder by 2LResearch
 ;
 ;  File Name : modules.scad.vfc
-;  File Date : 01:43:36 PM - 10:Sep:2022
+;  File Date : 09:48:41 AM - 26:Jan:2023
 
 
 input(//  include <..\SCAD_modules\modules.scad>);//FILE: ..\SCAD_modules\modules.scad.vfc
@@ -190,9 +190,14 @@ generic(%box(9.9,10,10,i*10+5););// ////
 lend(});//// //////
 end(}});////// ////////
 
-input(module box(w,l,h) {);//// //////
-output(echo( " --------------------------BOX------------------- " ););//
-generic(translate([-w/2,-l/2,0])cube([w,l,h]););// ////
+input(module box(w,l,h, center = true ) {);//// //////
+output(echo( " > BOX------------------- " ););//
+branch(if( center  ));//
+path( { );//
+generic(translate([-w/2, -l/2, 0])   cube([w,l,h], center = false););// 
+path(} else { );//
+generic(cube([w,l,h] ););// ////
+bend( } );//
 end(});//// //////
 
 input(module ring( inner_rad, wall_thick, high ){);//// //////
@@ -216,6 +221,28 @@ generic(rotate([A,0,0])translate([-1.0,-L])cube([T+2,L,2*5*h]););// ////
 bend(});//// //////
 end(});////// ////////
 
+input(module pyramid(w, l, h) { );//// //////
+set(translate( [ w/2, -l/2 , h ] )  rotate( [ 0 , 180 , 0 ] )   {);//
+generic(mw = w/2; );// ////
+generic(ml = l/2; );// ////
+generic(polyhedron(points = [ );// ////
+generic([0,  0,  0], );// ////
+generic([w,  0,  0], );// ////
+generic([0,  l,  0], );// ////
+generic([w,  l,  0], );// ////
+generic([mw, ml, h] );// ////
+generic(], triangles = [ );// ////
+generic([4, 1, 0], );// ////
+generic([4, 3, 1], );// ////
+generic([4, 2, 3], );// ////
+generic([4, 0, 2], );// ////
+generic();// //base //
+generic([0, 1, 2], );// ////
+generic([2, 1, 3] );// ////
+generic(]); );// ////
+end(});//// //////
+end(});//// //////
+
 input(module cone(R1,R2,H,T){);//// //////
 branch(difference(){);//// //////
 path();//
@@ -233,4 +260,4 @@ end(});//// //////
 ;    modules.scad   //   ...
 ; notepad.exe
 ;INSECTA EMBEDDED ALTSESSION INFORMATION
-; 2775 186 688 610 1 157   340   4294960512    SCAD.key  0
+; 416 416 1594 1519 174 157   495   4294958380    SCAD.key  0
