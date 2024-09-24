@@ -40,7 +40,7 @@ module servo_sg90(){
 	stem_h = 4.5 ;
 	
 	neck_offset = 5.7;
-	neck_rad = 5.7;
+	neck_rad = 6;
 	neck_h = 4.8;
 	plate_thick = 2.25;
 	hole_offset = 2.5;
@@ -49,7 +49,7 @@ module servo_sg90(){
 	union(){
 		box(l,w,d);
 		translate([l/2- neck_offset , 0,d])cylinder(r=neck_rad , h = neck_h );
-		
+		translate([ -l/2 + neck_rad + 1 ,0,d])box( 2*neck_rad, 6 , 3  );
 		
 		translate([ l/2 - neck_offset ,0, d+neck_h])cylinder(r=stem_rad,h= stem_h);
 		translate([ l/2 - neck_offset ,0, 0])cylinder(r= hole_rad ,h=d*1.5);
@@ -226,5 +226,5 @@ module cone(R1,R2,H,T){
 		cylinder( r1=R1-T, r2=R2-T,h=H+1,center=false);
 		}
 	}
-//  Export  Date: 09:48:41 AM - 26:Jan:2023...
+//  Export  Date: 12:19:55 PM - 24:Sep:2024...
 

@@ -2,7 +2,7 @@
 ;  c1995-2015: Visual Flow Coder by 2LResearch
 ;
 ;  File Name : modules.scad.vfc
-;  File Date : 09:48:41 AM - 26:Jan:2023
+;  File Date : 12:19:55 PM - 24:Sep:2024
 
 
 input(//  include <..\SCAD_modules\modules.scad>);//FILE: ..\SCAD_modules\modules.scad.vfc
@@ -53,7 +53,7 @@ generic(top = 6.5;);// ////
 set(stem_h = 4.5 ;);//
 set();//stem_rad = 2;
 set(neck_offset = 5.7;);//
-set(neck_rad = 5.7;);//
+set(neck_rad = 6;);//
 set(neck_h = 4.8;);//
 generic(plate_thick = 2.25;);// ////
 generic(hole_offset = 2.5;);// ////
@@ -62,7 +62,7 @@ branch(difference(){);//// //////
 path(union(){);// 
 generic(box(l,w,d););// 
 generic(translate([l/2- neck_offset , 0,d])cylinder(r=neck_rad , h = neck_h ););// neck
-generic( );//translate([l/2-10,0,d])box(l,10.5,7);
+generic(translate([ -l/2 + neck_rad + 1 ,0,d])box( 2*neck_rad, 6 , 3  ););// 
 generic();// 
 generic(translate([ l/2 - neck_offset ,0, d+neck_h])cylinder(r=stem_rad,h= stem_h););// stem
 generic(translate([ l/2 - neck_offset ,0, 0])cylinder(r= hole_rad ,h=d*1.5););//stem hole
@@ -260,4 +260,4 @@ end(});//// //////
 ;    modules.scad   //   ...
 ; notepad.exe
 ;INSECTA EMBEDDED ALTSESSION INFORMATION
-; 416 416 1594 1519 174 157   495   4294958380    SCAD.key  0
+; 890 455 1253 1432 52 157   738   4294965292    SCAD.key  0
