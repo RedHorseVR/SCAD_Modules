@@ -31,6 +31,41 @@ module Dshaft( Radius, H, CutRatio = .8 ) {
 		translate( [2*Radius * CutRatio, 0 , 0 ] )  box( 2* Radius , 2*Radius , H+1  );
 		} }
 	}
+module servo_mini(){
+	w = 9;
+	l = 17;
+	d = 18;
+	lip_width = 5;
+	top = 6.5;
+	stem_h = 4.5 ;
+	
+	neck_offset = 5.7;
+	neck_rad = 6;
+	neck_h = 4.8;
+	plate_thick = 2.25;
+	hole_offset = 2.5/2;
+	hole_rad = 1.19;
+	difference(){
+	union(){
+		box(l,w,d);
+		translate([l/2- neck_offset , 0,d])cylinder(r=neck_rad , h = neck_h );
+		translate([ -l/2 + neck_rad + 1 ,0,d])box( 2*neck_rad, 6 , 3  );
+		
+		translate([ l/2 - neck_offset ,0, d+neck_h])cylinder(r=stem_rad,h= stem_h);
+		translate([ l/2 - neck_offset ,0, 0])cylinder(r= hole_rad ,h=d*1.5);
+		translate( [ 0, 0, d-top ] ) box( l + 2 * lip_width , w, plate_thick );
+		translate( [ 0 , 0 , 10 ] )
+		{
+		translate([l/2+hole_offset,0,0])cylinder(r=hole_rad , h=d);
+		translate([-l/2-hole_offset ,0,0])cylinder(r= hole_rad ,h=d );
+		}
+		
+		translate( [ l/2, 0, 0 ] ) box( l , w , 11 );
+		}
+	union(){
+		}
+		}
+	}
 module servo_sg90(){
 	w = 13;
 	l = 23;
@@ -226,5 +261,5 @@ module cone(R1,R2,H,T){
 		cylinder( r1=R1-T, r2=R2-T,h=H+1,center=false);
 		}
 	}
-//  Export  Date: 12:19:55 PM - 24:Sep:2024...
+//  Export  Date: 12:38:25 PM - 24:Sep:2024...
 
