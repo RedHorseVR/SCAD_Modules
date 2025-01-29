@@ -34,7 +34,7 @@ module Dshaft( Radius, H, CutRatio = .8 ) {
 module servo_mini(){
 	w = 9;
 	l = 17;
-	d = 18;
+	d = 16;
 	lip_width = 5;
 	top = 6.5;
 	stem_h = 4.5 ;
@@ -45,13 +45,15 @@ module servo_mini(){
 	plate_thick = 2.25;
 	hole_offset = 2.5/2;
 	hole_rad = 1.19;
+	translate( [ -3 , 0, 0 ] )
 	difference(){
 	union(){
-		box(l,w,d);
-		translate([l/2- neck_offset , 0,d])cylinder(r=neck_rad , h = neck_h );
+		translate( [ 0 , 0 ,0 ] )  box(l,w,d);
+		translate( [ 0 , 0 , 0 ] )  box(l,w-2, d +3);
+		translate([l/2- neck_offset , 0,d-2])cylinder(r=neck_rad , h = neck_h );
 		translate([ -l/2 + neck_rad + 1 ,0,d])box( 2*neck_rad, 6 , 3  );
 		
-		translate([ l/2 - neck_offset ,0, d+neck_h])cylinder(r=stem_rad,h= stem_h);
+		translate([ l/2 - neck_offset ,0, d+neck_h-2])cylinder(r=stem_rad,h= stem_h);
 		translate([ l/2 - neck_offset ,0, 0])cylinder(r= hole_rad ,h=d*1.5);
 		translate( [ 0, 0, d-top ] ) box( l + 2 * lip_width , w, plate_thick );
 		translate( [ 0 , 0 , 10 ] )
@@ -60,7 +62,7 @@ module servo_mini(){
 		translate([-l/2-hole_offset ,0,0])cylinder(r= hole_rad ,h=d );
 		}
 		
-		translate( [ l/2, 0, 0 ] ) box( l , w , 11 );
+		translate( [ l/2-5, 0, -2 ] ) box( l + 9 , w-1 , 10 );
 		}
 	union(){
 		}
@@ -189,12 +191,12 @@ module blkfly_bracket(){
 		// translate([-40,0,0])cylinder(r=30/2,h=19,center=false);
 		}
 	}
-module washer(){
+module washer( r_out = 13 , r_in =2.5 , h = 3.5  ){
 	difference(){
 	
-		cylinder(r=13, h=3.5);
+		cylinder( r=r_out , h=h );
 	
-		cylinder(r=2.5,h=7);
+		cylinder(r=r_in, h=2*h, center = true);
 		}
 	}
 module ruler(x,y,z,r){ translate([x,y,z])rotate([0,0,r]){
@@ -261,5 +263,5 @@ module cone(R1,R2,H,T){
 		cylinder( r1=R1-T, r2=R2-T,h=H+1,center=false);
 		}
 	}
-//  Export  Date: 12:38:25 PM - 24:Sep:2024...
+//  Export  Date: 08:30:31 PM - 24:Nov:2024...
 

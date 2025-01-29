@@ -2,7 +2,7 @@
 ;  c1995-2015: Visual Flow Coder by 2LResearch
 ;
 ;  File Name : modules.scad.vfc
-;  File Date : 12:38:25 PM - 24:Sep:2024
+;  File Date : 08:30:31 PM - 24:Nov:2024
 
 
 input(//  include <..\SCAD_modules\modules.scad>);//FILE: ..\SCAD_modules\modules.scad.vfc
@@ -47,7 +47,7 @@ end( });//
 input(module servo_mini(){);//// //////
 generic(w = 9;);// ////
 generic(l = 17;);// ////
-generic(d = 18;);// ////
+generic(d = 16;);// ////
 generic(lip_width = 5;);// ////
 generic(top = 6.5;);// ////
 set(stem_h = 4.5 ;);//
@@ -58,13 +58,15 @@ set(neck_h = 4.8;);//
 generic(plate_thick = 2.25;);// ////
 generic(hole_offset = 2.5/2;);// ////
 generic(hole_rad = 1.19;);// ////
+process(translate( [ -3 , 0, 0 ] ));//
 branch(difference(){);//// //////
 path(union(){);// 
-generic(box(l,w,d););// 
-generic(translate([l/2- neck_offset , 0,d])cylinder(r=neck_rad , h = neck_h ););// neck
+process(translate( [ 0 , 0 ,0 ] )  box(l,w,d););// 
+process(translate( [ 0 , 0 , 0 ] )  box(l,w-2, d +3););// 
+generic(translate([l/2- neck_offset , 0,d-2])cylinder(r=neck_rad , h = neck_h ););// neck
 generic(translate([ -l/2 + neck_rad + 1 ,0,d])box( 2*neck_rad, 6 , 3  ););// 
 generic();// 
-generic(translate([ l/2 - neck_offset ,0, d+neck_h])cylinder(r=stem_rad,h= stem_h););// stem
+generic(translate([ l/2 - neck_offset ,0, d+neck_h-2])cylinder(r=stem_rad,h= stem_h););// stem
 generic(translate([ l/2 - neck_offset ,0, 0])cylinder(r= hole_rad ,h=d*1.5););//stem hole
 generic(translate( [ 0, 0, d-top ] ) box( l + 2 * lip_width , w, plate_thick ););// PLATE
 process(translate( [ 0 , 0 , 10 ] ));//
@@ -73,7 +75,7 @@ generic(translate([l/2+hole_offset,0,0])cylinder(r=hole_rad , h=d););// hole
 generic(translate([-l/2-hole_offset ,0,0])cylinder(r= hole_rad ,h=d ););// hole
 set(});//
 set();//
-generic(translate( [ l/2, 0, 0 ] ) box( l , w , 11 ););// servo connector wire opening
+generic(translate( [ l/2-5, 0, -2 ] ) box( l + 9 , w-1 , 10 ););// servo connector wire opening
 generic(});// 
 path(union(){);//// //////
 generic(});// ////
@@ -211,12 +213,12 @@ generic(// translate([-40,0,0])cylinder(r=30/2,h=19,center=false););// ////
 bend(});////// ////////
 end(});//// //////
 
-input(module washer(){);//// //////
+input(module washer( r_out = 13 , r_in =2.5 , h = 3.5  ){);//// //////
 branch(difference(){);//// //////
 path();//
-generic(cylinder(r=13, h=3.5););// ////
+generic(cylinder( r=r_out , h=h ););// 
 path();//
-generic(cylinder(r=2.5,h=7););// ////
+generic(cylinder(r=r_in, h=2*h, center = true););// ////
 bend(});//// //////
 end(});//// //////
 
@@ -296,4 +298,4 @@ end(});//// //////
 ;    modules.scad   //   ...
 ; notepad.exe
 ;INSECTA EMBEDDED ALTSESSION INFORMATION
-; 778 448 1253 1432 46 106   652   4294966192    SCAD.key  0
+; 4294964159 30 1617 2008 51 236   948   4294964435    SCAD.key  0
