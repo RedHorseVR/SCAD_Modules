@@ -2,7 +2,7 @@
 ;  c1995-2015: Visual Flow Coder by 2LResearch
 ;
 ;  File Name : modules.scad.vfc
-;  File Date : 08:30:31 PM - 24:Nov:2024
+;  File Date : 02:22:25 PM - 18:Jan:2026
 
 
 input(//  include <..\SCAD_modules\modules.scad>);//FILE: ..\SCAD_modules\modules.scad.vfc
@@ -191,6 +191,31 @@ generic(circle(r););// ////
 bend(});//// //////
 end(});//// //////
 
+input(module smooth_box(d, r, s= 4) {);//smooth_box with consistent dimensions and alignment
+branch(if(s == 0) {);//no edge smoothing, use standard rounded_box
+path();//
+process(translate( [ -d[0]/2 , -d[1]/2 , 0 ] ));//
+process(linear_extrude(height = d[2] ));//
+branch(minkowski() {);//
+path();//
+generic(translate([r,r]) square([d[0]-2*r, d[1]-2*r]););// ////
+generic(circle(r););// ////
+bend(});//
+path(} else {);//use 3D minkowski with dimension and position compensation
+process(translate( [ -d[0]/2 + s , -d[1]/2 + s , s ] ));//compensate for sphere offset
+branch(minkowski() {);//3D minkowski with sphere
+path();//
+process(linear_extrude(height = d[2] - 2*s ));//reduce height for sphere
+branch(minkowski() {);//2D minkowski for corners
+path();//
+generic(translate([r,r]) square([d[0]-2*r-2*s, d[1]-2*r-2*s]););// ////compensate for sphere
+generic(circle(r););// ////
+bend(});//
+generic(sphere(r = s););// ////sphere for edge smoothing
+bend(});//
+bend(});//
+end(});//
+
 input(module rounded_box(d,r) {);//// //////
 process(translate( [ -d[0]/2 , -d[1]/2 , 0 ] ));//
 process(linear_extrude(height = d[2] ));//
@@ -298,4 +323,4 @@ end(});//// //////
 ;    modules.scad   //   ...
 ; notepad.exe
 ;INSECTA EMBEDDED ALTSESSION INFORMATION
-; 4294964159 30 1617 2008 51 236   948   4294964435    SCAD.key  0
+; 4294965407 14 1617 2008 174 236   800   4294954858    SCAD.key  0
