@@ -171,7 +171,7 @@ module rounded_square(d,r) {//// //////
 		circle(r);// ////
 		}//// //////
 	}//// //////
-module smooth_box(d, r, s= 4) {//smooth_box with consistent dimensions and alignment
+module smooth_box(d, r, s= 5) {//smooth_box with consistent dimensions and alignment
 	if(s == 0) {//no edge smoothing, use standard rounded_box
 	
 		translate( [ -d[0]/2 , -d[1]/2 , 0 ] )
@@ -287,5 +287,5 @@ module cone(R1,R2,H,T){//// //////
 		cylinder( r1=R1-T, r2=R2-T,h=H+1,center=false);// ////
 		}//// //////
 	}//// //////
-//  Export  Date: 02:22:25 PM - 18:Jan:2026...
+//  Export  Date: 01:07:55 PM - 19:Jan:2026...
 
