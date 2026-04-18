@@ -2,7 +2,7 @@
 ;  c1995-2015: Visual Flow Coder by 2LResearch
 ;
 ;  File Name : modules.scad.vfc
-;  File Date : 10:02:48 PM - 17:Apr:2026
+;  File Date : 10:04:32 PM - 17:Apr:2026
 
 
 input(//  include <..\SCAD_modules\modules.scad>);//FILE: ..\SCAD_modules\modules.scad.vfc
@@ -256,11 +256,11 @@ end(}});////// ////////
 input(module box(w,l,h, center = true ) {);//// //////
 output(echo( " > BOX------------------- " ););//
 branch(if( center  ));//
-path( { );//
+path( {);//
 generic(translate([-w/2, -l/2, 0])   cube([w,l,h], center = false););// 
-path(} else { );//
+path(} else {);//
 generic(cube([w,l,h] ););// ////
-bend( } );//
+bend( });//
 end(});//// //////
 
 input(module ring( inner_rad, wall_thick, high ){);//// //////
@@ -280,7 +280,7 @@ path();//
 generic(translate([0, -L/2,0]));// 
 generic(cube([T,L,h]););// ////
 path();//#
-generic(rotate([0,A,0])translate([-1.0,-L/2-.5])cube([T+2,L+1,2*5*h]););// 
+generic(rotate([0,A,0])translate([-1.0,-L/2-.5])cube([T+h,L+1,2*5*h]););// 
 bend(});//// //////
 end(});////// ////////
 
@@ -296,25 +296,25 @@ generic(rotate([A,0,0])translate([-1.0,-L])cube([T+2,L,2*5*h]););// ////
 bend(});//// //////
 end(});////// ////////
 
-input(module pyramid(w, l, h) { );//// //////
+input(module pyramid(w, l, h) {);//// //////
 set(translate( [ w/2, -l/2 , h ] )  rotate( [ 0 , 180 , 0 ] )   {);//
-generic(mw = w/2; );// ////
-generic(ml = l/2; );// ////
-generic(polyhedron(points = [ );// ////
-generic([0,  0,  0], );// ////
-generic([w,  0,  0], );// ////
-generic([0,  l,  0], );// ////
-generic([w,  l,  0], );// ////
-generic([mw, ml, h] );// ////
-generic(], triangles = [ );// ////
-generic([4, 1, 0], );// ////
-generic([4, 3, 1], );// ////
-generic([4, 2, 3], );// ////
-generic([4, 0, 2], );// ////
+generic(mw = w/2;);// ////
+generic(ml = l/2;);// ////
+generic(polyhedron(points = [);// ////
+generic([0,  0,  0],);// ////
+generic([w,  0,  0],);// ////
+generic([0,  l,  0],);// ////
+generic([w,  l,  0],);// ////
+generic([mw, ml, h]);// ////
+generic(], triangles = [);// ////
+generic([4, 1, 0],);// ////
+generic([4, 3, 1],);// ////
+generic([4, 2, 3],);// ////
+generic([4, 0, 2],);// ////
 generic();// //base //
-generic([0, 1, 2], );// ////
-generic([2, 1, 3] );// ////
-generic(]); );// ////
+generic([0, 1, 2],);// ////
+generic([2, 1, 3]);// ////
+generic(]););// ////
 end(});//// //////
 end(});//// //////
 
