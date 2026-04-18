@@ -247,6 +247,17 @@ module ring( inner_rad, wall_thick, high ){//// //////
 		}//// //////
 	}//// //////
 module wedge(T,L,h ) { 
+	A =  -atan(h/L);// ////
+	translate( [ -T/2 , 0 , 0 ] )
+	difference(){//// //////
+	
+		translate([0, -L/2,0]) 
+		cube([T,L,h]);// ////
+	//#
+		rotate([0,A,0])translate([-1.0,-L/2-.5])cube([T+2,L+1,2*5*h]); 
+		}//// //////
+	}////// ////////
+module _wedge(T,L,h ) { 
 	A =  -atan(L/h);// ////
 	translate( [ -T/2 , 0 , 0 ] )
 	difference(){//// //////
@@ -287,5 +298,5 @@ module cone(R1,R2,H,T){//// //////
 		cylinder( r1=R1-T, r2=R2-T,h=H+1,center=false);// ////
 		}//// //////
 	}//// //////
-//  Export  Date: 01:07:55 PM - 19:Jan:2026...
+//  Export  Date: 10:02:48 PM - 17:Apr:2026...
 

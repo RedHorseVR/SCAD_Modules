@@ -2,7 +2,7 @@
 ;  c1995-2015: Visual Flow Coder by 2LResearch
 ;
 ;  File Name : modules.scad.vfc
-;  File Date : 01:07:55 PM - 19:Jan:2026
+;  File Date : 10:02:48 PM - 17:Apr:2026
 
 
 input(//  include <..\SCAD_modules\modules.scad>);//FILE: ..\SCAD_modules\modules.scad.vfc
@@ -273,6 +273,18 @@ bend(});//// //////
 end(});//// //////
 
 input(module wedge(T,L,h ) {);// 
+generic(A =  -atan(h/L););// ////
+process(translate( [ -T/2 , 0 , 0 ] ));//
+branch(difference(){);//// //////
+path();//
+generic(translate([0, -L/2,0]));// 
+generic(cube([T,L,h]););// ////
+path();//#
+generic(rotate([0,A,0])translate([-1.0,-L/2-.5])cube([T+2,L+1,2*5*h]););// 
+bend(});//// //////
+end(});////// ////////
+
+input(module _wedge(T,L,h ) {);// 
 generic(A =  -atan(L/h););// ////
 process(translate( [ -T/2 , 0 , 0 ] ));//
 branch(difference(){);//// //////
@@ -323,4 +335,4 @@ end(});//// //////
 ;    modules.scad   //   ...
 ; notepad.exe
 ;INSECTA EMBEDDED ALTSESSION INFORMATION
-; 4294965303 4294966647 1893 1274 174 195   718   4294956885    SCAD.key  0
+; 158 119 1805 1238 256 195   775   4294952964    SCAD.key  0
